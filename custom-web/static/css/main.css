@@ -45,7 +45,7 @@ a {
 }
 
 .bottom a:hover {
-  color: #007bff !important;
+  color: #5555ff !important;
   text-decoration: none;
 }
 
@@ -210,7 +210,7 @@ a {
 
 .login .login-inner-form .btn-md {
   padding: 8px 30px 8px 30px;
-  font-weight: 600;
+  font-weight: 400;
   font-size: 14px;
   letter-spacing: 1px;
   cursor: pointer;
@@ -392,6 +392,10 @@ input[type="radio"] {
   margin-top: 15px;
 }
 
+.details .link-back a {
+  color: #5555ff;
+}
+
 .details .divider{
   height: 1px;
   background: #ccc;
@@ -419,7 +423,7 @@ input[type="radio"] {
 .details .auth-types a {
   display: inline-block;
   margin: 0px 5px;
-  color: #007bff;
+  color: #5555ff;
   font-weight: 400;
   font-size: 14px;
   transition: all 0.3s;
@@ -428,8 +432,8 @@ input[type="radio"] {
 
 .details .auth-types a:hover {
   text-decoration: none;
-  border-color: #007bff;
-  color: #007bff;
+  border-color: #5555ff;
+  color: #5555ff;
 }
 
 .details .auth-types a .iconfont {
@@ -442,7 +446,7 @@ input[type="radio"] {
 }
 
 .details .auth-types .function-btn:hover{
-  color: #007bff;
+  color: #5555ff;
 }
 
 
