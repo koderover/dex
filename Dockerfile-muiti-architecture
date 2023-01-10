@@ -35,7 +35,7 @@ RUN --mount=type=cache,id=gobuild,target=/gocache make release-binary
 #RUN wget -O /usr/local/bin/gomplate-arm64 "https://resource.koderover.com/gomplate_linux-arm64" \
 #  && chmod +x /usr/local/bin/gomplate-arm64
 
-FROM alpine:3.14.0
+FROM alpine:3.17.1
 
 ARG TARGETARCH
 
