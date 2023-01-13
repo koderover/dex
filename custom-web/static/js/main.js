@@ -5,7 +5,7 @@ const port = window.location.port;
 // login();
 var dex = new Vue({
     el: "#dex-login",
-    delimiters: ["{{{", "}}}"],
+    delimiters: ["<<<", ">>>"],
     data: {
         loginForm: {
             account: "",
@@ -14,6 +14,11 @@ var dex = new Vue({
         showRegistration:false,
         showLoginError:false,
         showPassword:false
+    },
+    computed:{
+        year(){
+            return new Date().getFullYear()
+        }
     },
     methods: {
         async login() {
