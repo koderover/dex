@@ -12,21 +12,24 @@
     <link rel="mask-icon" href="{{ url .ReqPath "static/favicon/safari-pinned-tab.svg"  }}"  color="#e20382" />
     <meta name="msapplication-TileColor" content="#e20382" />
     <meta name="theme-color" content="#ffffff" />
-    <link href="{{ url .ReqPath "static/css/bootstrap.css" }}" rel="stylesheet">
+    <script src="{{ url .ReqPath "static/js/vue.min.js" }}"></script>
+    <script src="{{ url .ReqPath "static/js/element.min.js" }}"></script>
+    <link href="{{ url .ReqPath "static/css/index.css" }}" rel="stylesheet">
     <link href="{{ url .ReqPath "static/css/main.css" }}" rel="stylesheet">
+    <link href="{{ url .ReqPath "static/css/iconfont.css" }}" rel="stylesheet">
     <link href="{{ url .ReqPath "static/css/notosanssc.css" }}" rel="stylesheet">
     <link href="{{ url .ReqPath "static/css/overpass.css" }}" rel="stylesheet">
-    <!-- <link href="{{ url .ReqPath "theme/styles.css" }}" rel="stylesheet"> -->
-    <link rel="stylesheet" href="//at.alicdn.com/t/font_1282370_f2amwt7wbik.css"
-    media="all" onload="this.media='all'" />
     <title>登录</title>
 </head>
 
 <body>
-    <div id="dex-login" style="height: 100%; display: flex; flex-direction: column">
-        <div class="login tab-box" style="height: 100%">
+    <div
+        id="dex-login"
+        style="height: 100%; display: flex; flex-direction: column"
+    >
+        <div class="login" style="height: 100%">
             <div class="container-fluid">
-                <div class="row">
-                    <div class="col-lg-7 col-md-12 col-pad-0 form-section">
-                        <div class="login-inner-form">
-                            <div class="details">
+                <el-row type="flex">
+                    <el-col :xs="24" :sm="24" :md="13" :lg="13" class="form-section">
+                      <div class="login-inner-form">
+                        <div class="details">

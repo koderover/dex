@@ -1,40 +1,47 @@
 {{ template "header.html" . }}
 
 <div class="grant-access-container">
-  <h4 class="heading">授予访问权限</h4>
-  <hr>
-  <div>
-    {{ if .Scopes }}
-    <div class="subtle-text">{{ .Client }} 想要获取以下权限:</div>
-    <ul class="permission-list">
-      {{ range $scope := .Scopes }}
-      <li>{{ $scope }}</li>
-      {{ end }}
-    </ul>
-    {{ else }}
-    <div class="subtle-text">{{ .Client }} 不会收集任何个人信息</div>
-    {{ end }}
-  </div>
-  <hr>
-  <div class="container">
-      <div class="row">
-        <div class="col-sm">
-          <form method="post">
-              <input type="hidden" name="req" value="{{ .AuthReqID }}"/>
-              <input type="hidden" name="approval" value="approve">
-              <button type="submit" class="btn btn-primary btn-sm btn-block">授权</button>
-            </form>
-        </div>
-        <div class="col-sm">
-          <form method="post">
-              <input type="hidden" name="req" value="{{ .AuthReqID }}"/>
-              <input type="hidden" name="approval" value="rejected">
-              <button type="submit" class="btn btn-light btn-sm btn-block">取消</button>
-            </form>
-        </div>
-      </div>
+    <h4 class="heading">授予访问权限</h4>
+    <div>
+        {{ if .Scopes }}
+        <div class="subtle-text">{{ .Client }} 想要获取以下权限:</div>
+        <ul class="permission-list">
+            {{ range $scope := .Scopes }}
+            <li>{{ $scope }}</li>
+            {{ end }}
+        </ul>
+        {{ else }}
+        <div class="subtle-text">{{ .Client }} 不会收集任何个人信息</div>
+        {{ end }}
     </div>
-
+    <div class="container">
+        <el-row>
+            <el-col :span="12">
+                <form method="post">
+                    <input type="hidden" name="req" value="{{ .AuthReqID }}" />
+                    <input type="hidden" name="approval" value="approve" />
+                    <button
+                        type="submit"
+                        class="el-button btn-theme el-button--small"
+                    >
+                        授权
+                    </button>
+                </form>
+            </el-col>
+            <el-col :span="12">
+                <form method="post">
+                    <input type="hidden" name="req" value="{{ .AuthReqID }}" />
+                    <input type="hidden" name="approval" value="rejected" />
+                    <button
+                        type="submit"
+                        class="el-button el-button--small is-plain"
+                    >
+                        取消
+                    </button>
+                </form></el-col
+            >
+        </el-row>
+    </div>
 </div>
 
 {{ template "footer.html" . }}

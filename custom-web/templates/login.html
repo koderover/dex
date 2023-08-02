@@ -4,62 +4,36 @@
 <header>
     <a href="#"><img src="{{ url .ReqPath "static/img/default-logo.png" }}" alt="logo" /></a>
 </header>
-<section class="login-container">
-    <form
-    id="loginForm"
-    @submit.prevent="login"
-    >
-        <div class="form-group">
-            <label for="userid"
-                >用户名</label
-            >
-            <input
-                required
-                v-model="loginForm.account"
-                id="login"
-                name="sccount"
-                type="text"
-                class="form-control"
-                placeholder="请输入用户名"
-                value=""
-                autofocus
-            />
-        </div>
-        <div class="form-group">
-            <label for="password"
-                >密码</label
-            >
-            <div class="input--suffix">
-                <input
-                    required
-                    v-model="loginForm.password"
-                    id="password"
-                    name="password"
-                    :type="showPassword?'text':'password'"
-                    class="form-control"
-                    placeholder="请输入密码"
-                    value=""
-                    autofocus
-                />
-                <span class="input__suffix">
-                    <span class="input__suffix-inner">
-                    <i @click="showPassword = !showPassword" class="iconfont iconview"></i>
-                    </span>
-                </span>
-            </div>
-        </div>
-        <p v-if="showLoginError" class="text-left error-text">用户名或密码不正确</p>
-        <button
-            class="
-                btn
-                btn-primary
-                btn-md
-                btn-block
-            "
+<section>
+    <el-form :model="loginForm" status-icon :rules="rules" ref="loginForm" label-position="left" hide-required-asterisk>
+      <el-form-item label="用户名" prop="account">
+        <el-input v-model="loginForm.account" placeholder="请输入用户名" autocomplete="off"></el-input>
+      </el-form-item>
+      <el-form-item label="密码" prop="password">
+        <el-input
+          type="password"
+          @keyup.enter.native="login"
+          v-model="loginForm.password"
+          autocomplete="off"
+          placeholder="请输入密码"
+          show-password
+        ></el-input>
+      </el-form-item>
+      <el-form-item v-if="captcha && captcha.id" label="验证码" prop="captcha_answer">
+        <el-input
+          @keyup.enter.native="login"
+          v-model="loginForm.captcha_answer"
+          autocomplete="off"
+          clearable=""
+          placeholder="请输入验证码"
         >
-            登录
-        </button>
-    </form>
+        <template slot="prepend">
+          <img class="captcha-img" :src="captcha.content" @click="getCaptcha">
+        </template>
+        </el-input>
+      </el-form-item>
+    </el-form>
+    <el-button type="submit" @click="login" :loading="loading" class="btn-md btn-theme login-btn">登录</el-button>
 </section>
 <section class="auth-types">
     <span class="login-button-show methods-desc">

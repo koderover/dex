@@ -31,151 +31,125 @@
         />
         <meta name="msapplication-TileColor" content="#e20382" />
         <meta name="theme-color" content="#ffffff" />
-        <link rel="stylesheet" href="https://at.alicdn.com/t/font_1282370_f2amwt7wbik.css"
-        media="all" onload="this.media='all'" />
-        <link href="../static/css/bootstrap.css" rel="stylesheet" />
+        <script type="text/javascript" src="../static/js/vue.min.js"></script>
+        <script
+            type="text/javascript"
+            src="../static/js/element.min.js"
+        ></script>
+        <link href="../static/css/index.css" rel="stylesheet" />
         <link href="../static/css/main.css" rel="stylesheet" />
+        <link href="../static/css/iconfont.css" rel="stylesheet" />
+        <link href="../static/css/notosanssc.css" rel="stylesheet" />
+        <link href="../static/css/overpass.css" rel="stylesheet" />
         <title>登录</title>
     </head>
 
     <body>
-        <div id="dex-login" style="height: 100%; display: flex; flex-direction: column">
-            <div class="login tab-box" style="height: 100%">
+        <div
+            id="dex-login"
+            style="height: 100%; display: flex; flex-direction: column"
+        >
+            <div class="login" style="height: 100%">
                 <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-lg-7 col-md-12 col-pad-0 form-section">
-                            <div class="login-inner-form">
-                                <div class="details">
-                                    <header>
-                                        <a href="#"><img src="../static/img/default-logo.png" alt="logo" /></a>
-                                    </header>
-                                    <!-- 头结束 -->
-                                    <section class="login-container">
-                                        <form
-                                        id="loginForm"
-                                        @submit.prevent="login"
-                                        >
-                                            <div class="form-group">
-                                                <label for="userid"
-                                                    >用户名</label
-                                                >
-                                                <input
-                                                    required
-                                                    v-model="loginForm.account"
-                                                    id="login"
-                                                    name="sccount"
-                                                    type="text"
-                                                    class="form-control"
-                                                    placeholder="用户名"
-                                                    value=""
-                                                    autofocus
-                                                />
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="password"
-                                                    >密码</label
-                                                >
-                                                <div class="input--suffix">
-                                                    <input
-                                                        required
-                                                        v-model="loginForm.password"
-                                                        id="password"
-                                                        name="password"
-                                                        :type="showPassword?'text':'password'"
-                                                        class="form-control"
-                                                        placeholder="请输入密码"
-                                                        value=""
-                                                        autofocus
-                                                    />
-                                                    <span class="input__suffix">
-                                                        <span class="input__suffix-inner">
-                                                        <i @click="showPassword = !showPassword" class="iconfont iconview"></i>
-                                                        </span>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                            <p v-if="showLoginError" class="text-left error-text">用户名或密码不正确</p>
-                                            <button
-                                                class="
-                                                    btn
-                                                    btn-primary
-                                                    btn-md
-                                                    btn-block
-                                                "
-                                            >
-                                                登录
-                                            </button>
-                                        </form>
-                                    </section>
-                                    <section class="auth-types">
-                                        <span class="login-button-show methods-desc">
-                                            <span>第三方登录：</span>
+                    <el-row type="flex">
+                        <el-col :xs="24" :sm="24" :md="13" :lg="13" class="form-section">
+                          <div class="login-inner-form">
+                            <div class="details">
+                              <header>
+                                <a href="#">
+                                  <img src="../static/img/default-logo.png" alt="logo" />
+                                </a>
+                              </header>
+                              <section>
+                                <el-form :model="loginForm" status-icon :rules="rules" ref="loginForm" label-position="left" hide-required-asterisk>
+                                  <el-form-item label="用户名" prop="account">
+                                    <el-input v-model="loginForm.account" placeholder="请输入用户名" autocomplete="off"></el-input>
+                                  </el-form-item>
+                                  <el-form-item label="密码" prop="password">
+                                    <el-input
+                                      type="password"
+                                      @keyup.enter.native="login"
+                                      v-model="loginForm.password"
+                                      autocomplete="off"
+                                      placeholder="请输入密码"
+                                      show-password
+                                    ></el-input>
+                                  </el-form-item>
+                                  <el-form-item v-if="captcha && captcha.id" label="验证码" prop="captcha_answer">
+                                    <el-input
+                                      @keyup.enter.native="login"
+                                      v-model="loginForm.captcha_answer"
+                                      autocomplete="off"
+                                      clearable=""
+                                      placeholder="请输入验证码"
+                                    >
+                                    <template slot="prepend">
+                                      <img class="captcha-img" :src="captcha.content" @click="getCaptcha">
+                                    </template>
+                                    </el-input>
+                                  </el-form-item>
+                                </el-form>
+                                <el-button type="submit" @click="login" :loading="loading" class="btn-md btn-theme login-btn">登录</el-button>
+                              </section>
+                              <section class="auth-types">
+                                <span class="login-button-show methods-desc">
+                                    <span>第三方登录：</span>
+                                </span>
+                                <a href="test">
+                                    <span class="login-button-show">
+                                        <i class="iconfont icongithub"></i>
+                                    </span>
+                                </a>
+                                <a href="test">
+                                    <span class="login-button-show">
+                                        <i class="iconfont iconldap"></i>
+                                    </span>
+                                </a>
+                                <a href="test">
+                                    <span class="login-button-show">
+                                        <i class="iconfont iconoauth"></i>
+                                    </span>
+                                </a>
+                                <a href="test">
+                                    <span class="login-button-show">
+                                        <i class="iconfont iconotherauth"></i>
+                                    </span>
+                                </a>
+                                <span class="divide">|</span>
+                                <a href="/signin?findPassword=true">
+                                    <span class="login-button-show function-btn">
+                                        <span>找回密码</span>
+                                    </span>
+                                </a>
+                                <template v-if="showRegistration">
+                                    <span class="divide">|</span>
+                                    <a href="/signin?signUp=true">
+                                        <span class="login-button-show function-btn">
+                                            <span>注册</span>
                                         </span>
-                                        <a href="test">
-                                            <span class="login-button-show">
-                                                <i class="iconfont icongithub"></i>
-                                            </span>
-                                        </a>
-                                        <a href="test">
-                                            <span class="login-button-show">
-                                                <i class="iconfont iconldap"></i>
-                                            </span>
-                                        </a>
-                                        <a href="test">
-                                            <span class="login-button-show">
-                                                <i class="iconfont iconoauth"></i>
-                                            </span>
-                                        </a>
-                                        <a href="test">
-                                            <span class="login-button-show">
-                                                <i class="iconfont iconotherauth"></i>
-                                            </span>
-                                        </a>
-                                        <span class="divide">|</span>
-                                        <a href="/signin?findPassword=true">
-                                            <span class="login-button-show function-btn">
-                                                <span>找回密码</span>
-                                            </span>
-                                        </a>
-                                        <template v-if="showRegistration">
-                                            <span class="divide">|</span>
-                                            <a href="/signin?signUp=true">
-                                                <span class="login-button-show function-btn">
-                                                    <span>注册</span>
-                                                </span>
-                                            </a>
-                                        </template>
-                                      </section>
-                                    <!-- 尾结束 -->
-                                </div>
+                                    </a>
+                                </template>
+                              </section>
                             </div>
-                        </div>
-                        <div
-                            class="col-lg-5 col-md-12 col-pad-0 bg-img none-992"
-                        >
-                            <div class="information">
-                                <div class="btn-section"></div>
-                                <h3>Zadig，让工程师更加专注创造～</h3>
-                                <p>
-                                    工程师热爱的云原生持续交付平台：具备灵活易用的高并发工作流、面向开发者的云原生环境、高效协同的测试管理、强大免运维的模板库、客观精确的效能洞察以 及云原生 IDE 插件等重要特性，为工程师提供统一的协作平面。
-                                </p>
-                            </div>
-                        </div>
-                    </div>
+                          </div>
+                        </el-col>
+                        <el-col class="bg-img none-992" :xs="0" :sm="0" :md="11" :lg="11">
+                          <div class="information">
+                            <h3>Zadig，让工程师更加专注创造～</h3>
+                            <p>工程师热爱的云原生持续交付平台：具备灵活易用的高并发工作流、面向开发者的云原生环境、高效协同的测试管理、强大免运维的模板库、客观精确的效能洞察以及云原生 IDE 插件等重要特性，为工程师提供统一的协作平面。</p>
+                          </div>
+                        </el-col>
+                      </el-row>
                 </div>
                 <footer>
                     <div class="copyright">
                         筑栈（上海）信息技术有限公司 KodeRover ©<span v-html="year"></span>
                     </div>
-                </footer>
+                 </footer>
             </div>
         </div>
     </body>
 </html>
-<script src="../static/js/axios.min.js"></script>
-<script src="../static/js/store.min.js"></script>
-<script src="../static/js/vue.min.js"></script>
-<script src="../static/js/main.js"></script>
-<script>
-
-</script>
+<script type="text/javascript" src="../static/js/axios.min.js"></script>
+<script type="text/javascript" src="../static/js/store.min.js"></script>
+<script type="text/javascript" src="../static/js/main.js"></script>
