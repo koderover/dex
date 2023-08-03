@@ -197,7 +197,7 @@ var migrations = []migration{
 	{
 		stmts: []string{
 			`
-			create table connector (
+			create table if not exists connector (
 				id text not null primary key,
 				type text not null,
 				name text not null,
