@@ -383,14 +383,13 @@ func (c *ldapConnector) identityFromEntry(user ldap.Entry) (ident connector.Iden
 			missing = append(missing, c.UserSearch.PreferredUsernameAttrAttr)
 		}
 	}
-
+	// TODO(ericchiang): Let this value be set from an attribute.
+	ident.EmailVerified = false
 	if c.UserSearch.EmailSuffix != "" {
 		ident.Email = ident.Username + "@" + c.UserSearch.EmailSuffix
-	} else if ident.Email = getAttr(user, c.UserSearch.EmailAttr); ident.Email == "" {
+	} else if ident.Email = getAttr(user, c.UserSearch.EmailAttr); ident.Email == "" && ident.EmailVerified {
 		missing = append(missing, c.UserSearch.EmailAttr)
 	}
-	// TODO(ericchiang): Let this value be set from an attribute.
-	ident.EmailVerified = true
 
 	if len(missing) != 0 {
 		err := fmt.Errorf("ldap: entry %q missing following required attribute(s): %q", user.DN, missing)
